@@ -7,7 +7,19 @@
     </tr>
     <tr>
         <td>Year of release:</td>
-        <td>@Model.ReleaseDate.Year</td>
+        <td>
+            @{
+                if (Model.ReleaseDate.Value > DateTime.Today)
+                {
+                    var days = (Model.ReleaseDate.Value - DateTime.Today).Days;
+                    <p>Still @days days to go!</p>
+                }
+                else
+                {
+                    @Model.ReleaseDate.Value.Year;
+                    }
+                }
+        </td>
     </tr>
     <tr>
         <td>Rating:</td>

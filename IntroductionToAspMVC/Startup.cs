@@ -22,7 +22,7 @@ namespace IntroductionToAspMVC
         {
             services.AddControllersWithViews();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IMovieService, MovieService>();
+            services.AddSingleton<IMovieService, MovieService>();
 
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
         }

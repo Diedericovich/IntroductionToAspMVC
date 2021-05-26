@@ -1,9 +1,15 @@
 ﻿@model MovieViewModel
 
-
 <a asp-controller="Movies" asp-action="Create">Add a new movie</a>
 
-@foreach (var movie in Model.Movies)
+@if (Model.Movies.Any())
 {
-       <a class="nav-link text-dark" asp-area="" asp-controller="Movies" asp-action="Detail" asp-route-id="@movie.Id">@movie.Title</a>
+    @foreach (var movie in Model.Movies)
+    {
+        <a class="nav-link text-dark" asp-area="" asp-controller="Movies" asp-action="Detail" asp-route-id="@movie.Id">@movie.Title</a>
+    }
+}
+else
+{
+    <p>Er zijn geen films om weer te geven.</p>
 }

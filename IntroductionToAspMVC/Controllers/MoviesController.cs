@@ -52,9 +52,7 @@ namespace IntroductionToAspMVC.Controllers
         public IActionResult Create(MovieDetailViewModel vm)
         {
             Movie movieModel = _mapper.Map<Movie>(vm);
-
-            // TODO: Store in DB, Call Service
-
+            _service.AddMovie(movieModel);
             return RedirectToAction(nameof(Index));
         }
     }

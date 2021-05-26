@@ -24,14 +24,17 @@ namespace IntroductionToAspMVC.ViewModels
         public ICollection<string> Courses { get; set; }
 
         [DisplayName("Leeftijd")]
+        [Required(ErrorMessage = "Leeftijd is verplicht")]
         [Range(12, 18)]
-        public int Age { get; set; }
+        public int? Age { get; set; }
 
         [DisplayName("Datum van geboorte")]
+        [Required(ErrorMessage = "Geboortedatum is verplicht")]
         [Range(typeof(DateTime), "01/01/1970", "01/01/2003")]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         [DisplayName("Geslacht")]
+        [Required(ErrorMessage = "Geslacht is verplicht")]
         public int Gender { get; set; }
     }
 }

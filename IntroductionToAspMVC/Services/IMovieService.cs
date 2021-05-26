@@ -6,5 +6,6 @@ namespace IntroductionToAspMVC.Services
     public interface IMovieService
     {
         ICollection<Movie> GetMovies();
+        void AddMovie(Movie movieModel);
     }
 }

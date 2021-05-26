@@ -28,7 +28,7 @@
 
     <div class="form-group">
         <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()">
-            <option selected="selected" value="value">Please select a gender</option>
+            @*<option selected="selected" value="value">Please select a gender</option>*@
         </select>
         <span class="text-danger" asp-validation-for="Gender"></span>
     </div>

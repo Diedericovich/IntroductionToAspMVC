@@ -6,9 +6,7 @@ namespace IntroductionToAspMVC.Services
 {
     public class MovieService : IMovieService
     {
-        public ICollection<Movie> GetMovies()
-        {
-            return new List<Movie>
+        private List<Movie> list = new List<Movie>
             {
                 new Movie
                 {
@@ -35,6 +33,15 @@ namespace IntroductionToAspMVC.Services
                     Created = DateTime.Now
                 },
             };
+
+        public ICollection<Movie> GetMovies()
+        {
+            return list;
+        }
+
+        public void AddMovie(Movie movie)
+        {
+            list.Add(movie);
         }
     }
 }
