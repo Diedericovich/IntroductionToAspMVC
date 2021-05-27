@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace IntroductionToAspMVC.Models
 {
-    public class Cursist
+    public class Cursist: BaseModel
     {
-        public int Id { get; set; }
-
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

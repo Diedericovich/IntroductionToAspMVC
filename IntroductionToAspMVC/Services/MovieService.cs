@@ -1,54 +1,45 @@
-﻿using IntroductionToAspMVC.Models;
+﻿using IntroductionToAspMVC.Data;
+using IntroductionToAspMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace IntroductionToAspMVC.Services
 {
     public class MovieService : IMovieService
     {
-        private List<Movie> movies = new List<Movie>
-            {
-                new Movie
-                {
-                    Id = 1,
-                    Title = "Jurassic Park",
-                    ReleaseDate = new DateTime(1993,1,1),
-                    Rating = 7.8,
-                    Created = DateTime.Now
-                },
-                new Movie
-                {
-                    Id = 2,
-                    Title = "Terminator 2",
-                    ReleaseDate = new DateTime(1991,1,1),
-                    Rating = 7.5,
-                    Created = DateTime.Now
-                },
-                new Movie
-                {
-                    Id = 3,
-                    Title = "The Thing",
-                    ReleaseDate = new DateTime(1982,1,1),
-                    Rating = 7.8,
-                    Created = DateTime.Now
-                },
-            };
+        private IGenericRepo<Movie> _repo;
 
-        public ICollection<Movie> GetMovies()
+        public MovieService(IGenericRepo<Movie> repo)
         {
-            return movies;
+            _repo = repo;
         }
 
-        public void AddMovie(Movie movie)
+        public async Task<IList<Movie>> GetMoviesAsync()
         {
-            movies.Add(movie);
+            return await _repo.GetEntitiesAsync();
         }
 
-        public Movie GetMovie(int id)
+        public async Task AddMovieAsync(Movie movie)
         {
-            var movie = movies.SingleOrDefault(x => x.Id == id);
+            await _repo.AddEntityAsync(movie);
+        }
+
+        public async Task<Movie> GetMovieAsync(int id)
+        {
+            var movie = await _repo.GetEntityAsync(id);
             return movie;
+        }
+
+        public async Task UpdateMovieAsync(Movie model)
+        {
+            await _repo.UpdateEntityAsync(model);
+        }
+
+        public async Task DeleteMovieAsync(Movie model)
+        {
+            await _repo.DeleteEntityAsync(model);
         }
     }
 }

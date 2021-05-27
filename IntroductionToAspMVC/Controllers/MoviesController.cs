@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
+using IntroductionToAspMVC.Models;
 using IntroductionToAspMVC.Services;
 using IntroductionToAspMVC.ViewModels;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using IntroductionToAspMVC.Models;
 using IntroductionToAspMVC.ViewModels.Movies;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace IntroductionToAspMVC.Controllers
 {
@@ -23,9 +24,9 @@ namespace IntroductionToAspMVC.Controllers
         }
 
         //[Route("Index")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            ICollection<Movie> movies = _service.GetMovies();
+            ICollection<Movie> movies = await _service.GetMoviesAsync();
             var viewModel = new MovieViewModel
             {
                 Movies = _mapper.Map<ICollection<Movie>>(movies)
@@ -36,9 +37,9 @@ namespace IntroductionToAspMVC.Controllers
 
         //[Route("MovieInformation/{id}")]
         //[Route("Detail/{id}")]
-        public IActionResult Detail(int id)
+        public async Task<IActionResult> Detail(int id)
         {
-            Movie movie = _service.GetMovies().FirstOrDefault(x => x.Id == id);
+            Movie movie = await _service.GetMovieAsync(id);
             MovieDetailViewModel viewModel = _mapper.Map<MovieDetailViewModel>(movie);
 
             return View(viewModel);
@@ -50,7 +51,8 @@ namespace IntroductionToAspMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(MovieCreateViewModel vm)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(MovieCreateViewModel vm)
         {
             bool isModelValid = TryValidateModel(vm);
 
@@ -60,13 +62,17 @@ namespace IntroductionToAspMVC.Controllers
             }
 
             Movie movieModel = _mapper.Map<Movie>(vm);
-            _service.AddMovie(movieModel);
+            await _service.AddMovieAsync(movieModel);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            Movie movie = _service.GetMovie(id);
+            if (id == 0)
+            {
+                return NotFound();
+            }
+            Movie movie = await _service.GetMovieAsync(id);
 
             if (movie == null)
             {
@@ -78,7 +84,8 @@ namespace IntroductionToAspMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(MovieEditViewModel vm)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(MovieEditViewModel vm)
         {
             bool isModelValid = TryValidateModel(vm);
 
@@ -88,8 +95,23 @@ namespace IntroductionToAspMVC.Controllers
             }
 
             Movie model = _mapper.Map<Movie>(vm);
-            //_service.UpdateMovie(id, model);
+            await _service.UpdateMovieAsync(model);
 
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            Movie model = new Movie { Id = id };
+
+            await _service.DeleteMovieAsync(model);
             return RedirectToAction(nameof(Index));
         }
     }

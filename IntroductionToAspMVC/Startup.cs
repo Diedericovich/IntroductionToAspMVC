@@ -1,7 +1,10 @@
+using IntroductionToAspMVC.Data;
 using IntroductionToAspMVC.Helpers;
+using IntroductionToAspMVC.Models;
 using IntroductionToAspMVC.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,9 +25,14 @@ namespace IntroductionToAspMVC
         {
             services.AddControllersWithViews();
             services.AddScoped<IUserService, UserService>();
-            services.AddSingleton<IMovieService, MovieService>();
+            services.AddScoped<IMovieService, MovieService>();
+            services.AddScoped<IGenericRepo<Movie>, GenericRepo<Movie>>();
 
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
+            services.AddDbContext<AspContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

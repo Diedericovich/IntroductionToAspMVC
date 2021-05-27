@@ -2,7 +2,7 @@
 
 namespace IntroductionToAspMVC.Models
 {
-    public class User
+    public class User: BaseModel
     {
         public int Id { get; set; }
 
