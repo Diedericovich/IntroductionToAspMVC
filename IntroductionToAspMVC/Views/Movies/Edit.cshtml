@@ -1,26 +1,30 @@
-﻿@model MovieCreateViewModel
+﻿@model MovieEditViewModel
 
-<form asp-controller="Movies" asp-action="Create" method="post">
+<form asp-controller="Movies" asp-action="Edit" method="post">
     <div class="form-group">
         <label asp-for="Title"></label>
         <input class="form-control" asp-for="Title" />
+        <span class="text-danger" asp-validation-for="Title"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="Rating"></label>
         <input class="form-control" asp-for="Rating" />
+        <span class="text-danger" asp-validation-for="Rating"></span>
     </div>
 
     <div class="form-group">
         <select asp-for="Genre" asp-items="Html.GetEnumSelectList<Genre>()">
             <option selected="selected" value="value">Please select a genre</option>
         </select>
+        <span class="text-danger" asp-validation-for="Genre"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="ReleaseDate"></label>
         <input class="form-control" asp-for="ReleaseDate" />
+        <span class="text-danger" asp-validation-for="ReleaseDate"></span>
     </div>
 
-    <button class="btn btn-primary" type="submit">Add a Movie</button>
+    <button class="btn btn-primary" type="submit">Update Movie</button>
 </form>

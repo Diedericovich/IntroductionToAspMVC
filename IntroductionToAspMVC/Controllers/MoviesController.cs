@@ -5,11 +5,12 @@ using IntroductionToAspMVC.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using IntroductionToAspMVC.Models;
+using IntroductionToAspMVC.ViewModels.Movies;
 
 namespace IntroductionToAspMVC.Controllers
 {
-    [Route("/films")]
-    [Route("/movies")]
+    //[Route("/films")]
+    //[Route("/movies")]
     public class MoviesController : Controller
     {
         private readonly IMovieService _service;
@@ -21,7 +22,7 @@ namespace IntroductionToAspMVC.Controllers
             _mapper = mapper;
         }
 
-        [Route("Index")]
+        //[Route("Index")]
         public IActionResult Index()
         {
             ICollection<Movie> movies = _service.GetMovies();
@@ -33,8 +34,8 @@ namespace IntroductionToAspMVC.Controllers
             return View(viewModel);
         }
 
-        [Route("MovieInformation/{id}")]
-        [Route("Detail/{id}")]
+        //[Route("MovieInformation/{id}")]
+        //[Route("Detail/{id}")]
         public IActionResult Detail(int id)
         {
             Movie movie = _service.GetMovies().FirstOrDefault(x => x.Id == id);
@@ -49,10 +50,46 @@ namespace IntroductionToAspMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(MovieDetailViewModel vm)
+        public IActionResult Create(MovieCreateViewModel vm)
         {
+            bool isModelValid = TryValidateModel(vm);
+
+            if (!isModelValid)
+            {
+                return View(vm);
+            }
+
             Movie movieModel = _mapper.Map<Movie>(vm);
             _service.AddMovie(movieModel);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Edit(int id)
+        {
+            Movie movie = _service.GetMovie(id);
+
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            MovieEditViewModel vm = _mapper.Map<MovieEditViewModel>(movie);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(MovieEditViewModel vm)
+        {
+            bool isModelValid = TryValidateModel(vm);
+
+            if (!isModelValid)
+            {
+                return View(vm);
+            }
+
+            Movie model = _mapper.Map<Movie>(vm);
+            //_service.UpdateMovie(id, model);
+
             return RedirectToAction(nameof(Index));
         }
     }

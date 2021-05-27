@@ -7,5 +7,6 @@ namespace IntroductionToAspMVC.Services
     {
         ICollection<Movie> GetMovies();
         void AddMovie(Movie movieModel);
+        Movie GetMovie(int id);
     }
 }

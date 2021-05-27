@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using IntroductionToAspMVC.Models;
 using IntroductionToAspMVC.ViewModels;
+using IntroductionToAspMVC.ViewModels.Movies;
 
 namespace IntroductionToAspMVC.Helpers
 {
@@ -8,11 +9,13 @@ namespace IntroductionToAspMVC.Helpers
     {
         public AutoMapperProfile()
         {
-            CreateMap<Movie, MovieDetailViewModel>()
-                .ReverseMap();
+            CreateMap<Movie, MovieDetailViewModel>().ReverseMap();
 
-            CreateMap<Cursist, CursistViewModel>()
-                .ReverseMap();
+            CreateMap<Movie, MovieCreateViewModel>().ReverseMap();
+
+            CreateMap<Movie, MovieEditViewModel>().ReverseMap();
+
+            CreateMap<Cursist, CursistViewModel>().ReverseMap();
         }
     }
 }

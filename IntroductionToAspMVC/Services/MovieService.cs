@@ -1,12 +1,13 @@
 ﻿using IntroductionToAspMVC.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IntroductionToAspMVC.Services
 {
     public class MovieService : IMovieService
     {
-        private List<Movie> list = new List<Movie>
+        private List<Movie> movies = new List<Movie>
             {
                 new Movie
                 {
@@ -29,19 +30,25 @@ namespace IntroductionToAspMVC.Services
                     Id = 3,
                     Title = "The Thing",
                     ReleaseDate = new DateTime(1982,1,1),
-                    Rating = 6.8,
+                    Rating = 7.8,
                     Created = DateTime.Now
                 },
             };
 
         public ICollection<Movie> GetMovies()
         {
-            return list;
+            return movies;
         }
 
         public void AddMovie(Movie movie)
         {
-            list.Add(movie);
+            movies.Add(movie);
+        }
+
+        public Movie GetMovie(int id)
+        {
+            var movie = movies.SingleOrDefault(x => x.Id == id);
+            return movie;
         }
     }
 }
