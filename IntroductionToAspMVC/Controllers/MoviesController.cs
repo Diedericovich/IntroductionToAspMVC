@@ -100,17 +100,35 @@ namespace IntroductionToAspMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult>Delete(int id)
         {
             if (id == 0)
             {
                 return NotFound();
             }
 
-            Movie model = new Movie { Id = id };
+            Movie model = await _service.GetMovieAsync(id);
 
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            MovieDeleteViewModel vm = _mapper.Map<MovieDeleteViewModel>(model);
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(MovieDeleteViewModel vm)
+        {
+            if (vm == null)
+            {
+                return NotFound();
+            }
+
+            Movie model = _mapper.Map<Movie>(vm);
             await _service.DeleteMovieAsync(model);
             return RedirectToAction(nameof(Index));
         }

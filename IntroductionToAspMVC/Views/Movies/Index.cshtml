@@ -4,10 +4,17 @@
 
 @if (Model.Movies.Any())
 {
-    @foreach (var movie in Model.Movies)
-    {
-        <a class="nav-link text-dark" asp-area="" asp-controller="Movies" asp-action="Detail" asp-route-id="@movie.Id">@movie.Title</a>
-    }
+    <table>
+        @foreach (var movie in Model.Movies)
+        {
+            <tr>
+                <td> @movie.Title</td>
+                <td><a class="nav-link" asp-area="" asp-controller="Movies" asp-action="Detail" asp-route-id="@movie.Id">Detail</a></td>
+                <td><a class="nav-link" asp-area="" asp-controller="Movies" asp-action="Edit" asp-route-id="@movie.Id">Edit</a></td>
+                <td><a class="nav-link" asp-area="" asp-controller="Movies" asp-action="Delete" asp-route-id="@movie.Id">Delete</a></td>
+            </tr>
+        }
+    </table>
 }
 else
 {
