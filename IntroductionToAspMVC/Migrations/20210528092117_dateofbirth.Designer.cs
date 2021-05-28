@@ -4,14 +4,16 @@ using IntroductionToAspMVC;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IntroductionToAspMVC.Migrations
 {
     [DbContext(typeof(AspContext))]
-    partial class AspContextModelSnapshot : ModelSnapshot
+    [Migration("20210528092117_dateofbirth")]
+    partial class dateofbirth
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

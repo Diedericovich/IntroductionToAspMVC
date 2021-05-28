@@ -22,5 +22,7 @@ namespace IntroductionToAspMVC.Models
         public string Telephone { get; set; }
 
         public Address Address { get; set; }
+
+        public DateTime DateOfBirth { get; set; }
     }
 }

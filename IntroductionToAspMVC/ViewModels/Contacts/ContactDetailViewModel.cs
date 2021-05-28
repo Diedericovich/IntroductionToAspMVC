@@ -1,4 +1,6 @@
-﻿namespace IntroductionToAspMVC.ViewModels.Contacts
+﻿using System;
+
+namespace IntroductionToAspMVC.ViewModels.Contacts
 {
     public class ContactDetailViewModel
     {
@@ -21,5 +23,7 @@
         public string PostalCode { get; set; }
 
         public string City { get; set; }
+
+        public DateTime DateOfBirth { get; set; }
     }
 }
