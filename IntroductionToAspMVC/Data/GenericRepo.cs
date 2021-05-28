@@ -22,7 +22,7 @@ namespace IntroductionToAspMVC.Data
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateEntityAsync(T entity)
+        public virtual async Task UpdateEntityAsync(T entity)
         {
             _context.Attach(entity);
             _context.Update(entity);
