@@ -34,7 +34,6 @@ namespace IntroductionToAspMVC.Services
         public async Task UpdateContactAsync(Contact contact)
         {
             await _contactRepo.UpdateEntityAsync(contact);
-            await _addressRepo.UpdateEntityAsync(contact.Address);
         }
 
         public async Task DeleteContactAsync(Contact contact)

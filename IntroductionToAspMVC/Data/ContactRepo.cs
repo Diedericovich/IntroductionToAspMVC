@@ -25,5 +25,20 @@ namespace IntroductionToAspMVC.Data
                 .Include(x => x.Address)
                 .ToListAsync();
         }
+
+        public override async Task UpdateEntityAsync(Contact contact)
+        {
+            using var transaction = _context.Database.BeginTransaction();
+
+            _context.Contacts.Attach(contact);
+            _context.Contacts.Update(contact);
+
+            _context.Addresses.Attach(contact.Address);
+            _context.Addresses.Update(contact.Address);
+
+            await _context.SaveChangesAsync();
+
+            transaction.Commit();
+        }
     }
 }
