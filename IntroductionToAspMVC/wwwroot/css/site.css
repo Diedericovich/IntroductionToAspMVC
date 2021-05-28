@@ -69,3 +69,46 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+body {
+    margin-top: 20px;
+}
+
+img {
+    border-radius: 50%;
+}
+
+.p-t-10 {
+    padding-top: 10px !important;
+}
+
+.media-main a.pull-left {
+    width: 100px;
+}
+
+.thumb-lg {
+    height: 84px;
+    width: 84px;
+}
+
+.media-main .info {
+    overflow: hidden;
+    color: #000;
+}
+
+    .media-main .info h4 {
+        padding-top: 10px;
+        margin-bottom: 5px;
+    }
+
+.social-links li a {
+    background: #EFF0F4;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    display: inline-block;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    color: #7A7676;
+}
