@@ -6,7 +6,5 @@ namespace IntroductionToAspMVC.Data
 {
     public interface IContactRepo: IGenericRepo<Contact>
     {
-        Task<IList<Contact>> GetEntitiesAsync();
-        Task<Contact> GetEntityAsync(int id);
     }
 }
