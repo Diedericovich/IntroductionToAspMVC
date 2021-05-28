@@ -11,6 +11,7 @@ namespace IntroductionToAspMVC
         public DbSet<Contact> Contacts { get; set; }
 
         public DbSet <Address> Addresses { get; set; }
+        public DbSet<Carpet> Carpet { get; set; }
 
         public AspContext(DbContextOptions options)
             : base(options)
@@ -48,5 +49,7 @@ namespace IntroductionToAspMVC
                     Genre = Enums.Genre.Horror,
                 });
         }
+
+        
     }
 }
