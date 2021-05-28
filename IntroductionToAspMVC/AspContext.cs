@@ -8,6 +8,10 @@ namespace IntroductionToAspMVC
     {
         public DbSet<Movie> Movies { get; set; }
 
+        public DbSet<Contact> Contacts { get; set; }
+
+        public DbSet <Address> Addresses { get; set; }
+
         public AspContext(DbContextOptions options)
             : base(options)
         {

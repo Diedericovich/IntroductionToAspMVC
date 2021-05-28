@@ -9,7 +9,7 @@ namespace IntroductionToAspMVC.Data
 {
     public class GenericRepo<T> : IGenericRepo<T> where T : BaseModel
     {
-        private AspContext _context;
+        protected AspContext _context;
 
         public GenericRepo(AspContext context)
         {
@@ -36,13 +36,13 @@ namespace IntroductionToAspMVC.Data
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IList<T>> GetEntitiesAsync()
+        public virtual async Task<IList<T>> GetEntitiesAsync()
         {
             var dbset = _context.Set<T>();
             return await dbset.ToListAsync();
         }
 
-        public async Task<T> GetEntityAsync(int id)
+        public virtual async Task<T> GetEntityAsync(int id)
         {
             var dbset = _context.Set<T>();
             return await dbset.FindAsync(id);

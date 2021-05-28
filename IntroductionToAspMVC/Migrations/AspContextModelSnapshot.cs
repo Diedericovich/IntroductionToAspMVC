@@ -19,6 +19,69 @@ namespace IntroductionToAspMVC.Migrations
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("IntroductionToAspMVC.Models.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Bus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PostalCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Street")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("IntroductionToAspMVC.Models.Contact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Emailadres")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("FirstName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("LastName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Telephone")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.ToTable("Contacts");
+                });
+
             modelBuilder.Entity("IntroductionToAspMVC.Models.Movie", b =>
                 {
                     b.Property<int>("Id")
@@ -52,7 +115,7 @@ namespace IntroductionToAspMVC.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2021, 5, 27, 10, 48, 4, 206, DateTimeKind.Local).AddTicks(4935),
+                            Created = new DateTime(2021, 5, 28, 10, 49, 48, 656, DateTimeKind.Local).AddTicks(8202),
                             Genre = 6,
                             Modified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Rating = 7.7999999999999998,
@@ -62,7 +125,7 @@ namespace IntroductionToAspMVC.Migrations
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2021, 5, 27, 10, 48, 4, 208, DateTimeKind.Local).AddTicks(3918),
+                            Created = new DateTime(2021, 5, 28, 10, 49, 48, 659, DateTimeKind.Local).AddTicks(2258),
                             Genre = 2,
                             Modified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Rating = 7.5,
@@ -72,13 +135,22 @@ namespace IntroductionToAspMVC.Migrations
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(2021, 5, 27, 10, 48, 4, 208, DateTimeKind.Local).AddTicks(3944),
+                            Created = new DateTime(2021, 5, 28, 10, 49, 48, 659, DateTimeKind.Local).AddTicks(2293),
                             Genre = 7,
                             Modified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Rating = 7.7999999999999998,
                             ReleaseDate = new DateTime(1982, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Thing"
                         });
+                });
+
+            modelBuilder.Entity("IntroductionToAspMVC.Models.Contact", b =>
+                {
+                    b.HasOne("IntroductionToAspMVC.Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
+                    b.Navigation("Address");
                 });
 #pragma warning restore 612, 618
         }
