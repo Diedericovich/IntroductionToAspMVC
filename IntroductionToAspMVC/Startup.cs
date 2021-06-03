@@ -31,6 +31,8 @@ namespace IntroductionToAspMVC
             services.AddScoped<IGenericRepo<Address>, GenericRepo<Address>>();
             services.AddScoped<IGenericRepo<Contact>, GenericRepo<Contact>>();
             services.AddScoped<IContactRepo, ContactRepo>();
+            services.AddScoped<IWeatherRepo, WeatherRepo>();
+            services.AddScoped<IWeatherService, WeatherService>();
 
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
             services.AddDbContext<AspContext>(options =>
