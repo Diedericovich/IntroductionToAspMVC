@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using IntroductionToAspMVC.Data.Weather;
 using IntroductionToAspMVC.Models;
 using IntroductionToAspMVC.ViewModels;
 using IntroductionToAspMVC.ViewModels.Contacts;
@@ -10,6 +11,14 @@ namespace IntroductionToAspMVC.Helpers
     {
         public AutoMapperProfile()
         {
+            CreateMap<WeatherEntity, Models.Weather>()
+                .ForMember(dst => dst.Location, opt => opt.MapFrom(src => src.name))
+                .ForMember(dst => dst.Temperature, opt => opt.MapFrom(src => src.main.temp))
+                .ForMember(dst => dst.MaxTemperature, opt => opt.MapFrom(src => src.main.temp_max))
+                .ForMember(dst => dst.MinTemperature, opt => opt.MapFrom(src => src.main.temp_min))
+                .ForMember(dst => dst.WeatherType, opt => opt.MapFrom(src => src.weather[0].description));
+
+
             CreateMap<Movie, MovieDetailViewModel>().ReverseMap();
 
             CreateMap<Movie, MovieCreateViewModel>().ReverseMap();
